@@ -1,6 +1,6 @@
 {
   "name": "create-config",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "frontend pages'configuration files generator",
   "main": "index.js",
   "bin": {
@@ -11,16 +11,19 @@
   ],
   "scripts": {
     "test": "node playground/post-build.js",
-    "bin": "create-config"
+    "bin": "create-config",
+    "release": "standard-version release"
   },
   "keywords": [
-    "configuration", "deploy"
+    "configuration",
+    "deploy"
   ],
   "license": "ISC",
   "dependencies": {
     "chalk": "4.1.2",
     "commander": "^9.4.0",
     "dotenv": "^16.0.2",
-    "fs-extra": "^10.1.0"
+    "fs-extra": "^10.1.0",
+    "standard-version": "^9.5.0"
   }
 }
