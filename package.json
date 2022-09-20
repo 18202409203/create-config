@@ -1,5 +1,5 @@
 {
-  "name": "create-config",
+  "name": "@zhupengji/create-config",
   "version": "1.0.1",
   "description": "frontend pages'configuration files generator",
   "main": "index.js",
