@@ -70,7 +70,7 @@ program
         require("dotenv").config({ path: envPath });
 
         Object.keys(process.env).forEach((key) => {
-          if (key.toLowerCase().startsWith(prefix)) {
+          if (key.startsWith(prefix)) {
             config[key] = process.env[key];
           }
         });

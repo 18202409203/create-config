@@ -24,7 +24,7 @@ By default, then you can find `dist/_app.config.js` contains the content:
 
 ```js
 window.APP_CONFIG = {
-  "CONFIG_API_URL": "http://localhost:8080"
+  CONFIG_API_URL: "http://localhost:8080",
 };
 Object.freeze(window.APP_CONFIG);
 Object.defineProperty(window, "APP_CONFIG", {
@@ -33,17 +33,33 @@ Object.defineProperty(window, "APP_CONFIG", {
 });
 ```
 
+### Usage
+
+1. Modify your html entry file manually or by tools like webpack.
+
+```html
+<script src="./_app.config.js"></script>
+```
+
+2. Using global config data in condition.
+
+```js
+function getGlobalConfig() {
+  if (process.env.NODE_ENV === "production") return window["APP_CONFIG"];
+  // ... otherwise
+}
+```
+
 ### options
 
-| key | default | description |
-| - | - | - |
-| config | - | required |
-| output | `"dist"` | - |
-| configName | `"APP_CONFIG"` | - |
-| configFileName | `"_app.config.js"` | - |
-| prefix | `"config_"` | case insensitive |
-| packageName | - | optional |
-
+| key            | default            | description                    |
+| -------------- | ------------------ | ------------------------------ |
+| config         | -                  | required                       |
+| output         | `"dist"`           | -                              |
+| configName     | `"APP_CONFIG"`     | -                              |
+| configFileName | `"_app.config.js"` | -                              |
+| prefix         | `"config_"`        | if you use vite, maybe `VITE_` |
+| packageName    | -                  | optional                       |
 
 ## CLI
 
@@ -66,4 +82,17 @@ Here is the options(you can get the list by `create-config gen --help`):
   -x, --prefix <string>            only keys start with the prefix would be preserved (default: "config_")
   -p, --package-name <string>      package name
   -h, --help                       display help for command
+```
+
+## Without `dotenv`
+
+It's recomended to use `dotenv`, which is used widely in modern front-end dev environments.
+We automatically read configs from your `.env.production | .env` file.
+
+Besides, there is one more way without `dotenv`. A `appConfig.json` at root is also available.
+
+```
+| - appConfig.json
+| - .env.production
+| - .env
 ```
