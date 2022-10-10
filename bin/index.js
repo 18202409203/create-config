@@ -19,9 +19,6 @@ const chalk = require("chalk");
 program.name(pkg.name).description(pkg.description).version(pkg.version);
 
 program
-  .command("gen")
-  .alias("generate")
-  .description("generate the configuration file")
   .option(
     "-o, --output <string>",
     "output directory where to put the generated file",
@@ -42,8 +39,7 @@ program
     "only keys start with the prefix would be preserved",
     PREFIX
   )
-  .option("-p, --package-name <string>", "package name")
-  .action(async ({ configName, configFileName, packageName, prefix }) => {
+  .action(async ({ configName, configFileName, prefix }) => {
     try {
       let config = {};
       // T1 rc file
@@ -75,6 +71,8 @@ program
           }
         });
       }
+
+      const packageName = `${process.env.npm_package_name}@${process.env.npm_package_version}`;
 
       createConfig({
         config,

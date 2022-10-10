@@ -7,7 +7,9 @@
     "create-config": "bin/index.js"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "constants.js",
+    "template.js"
   ],
   "scripts": {
     "test": "node playground/post-build.js",
@@ -16,7 +18,8 @@
   },
   "keywords": [
     "configuration",
-    "deploy"
+    "deploy",
+    "API_URL"
   ],
   "license": "ISC",
   "dependencies": {

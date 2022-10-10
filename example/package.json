@@ -1,0 +1,14 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "post-build.js",
+  "scripts": {
+    "config": "create-config"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@zhupengji/create-config": "file:.."
+  }
+}

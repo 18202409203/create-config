@@ -52,14 +52,13 @@ function getGlobalConfig() {
 
 ### options
 
-| key            | default            | description                    |
-| -------------- | ------------------ | ------------------------------ |
-| config         | -                  | required                       |
-| output         | `"dist"`           | -                              |
-| configName     | `"APP_CONFIG"`     | -                              |
-| configFileName | `"_app.config.js"` | -                              |
-| prefix         | `"config_"`        | if you use vite, maybe `VITE_` |
-| packageName    | -                  | optional                       |
+| key            | default            | description                                    |
+| -------------- | ------------------ | ---------------------------------------------- |
+| config         | -                  | required                                       |
+| output         | `"dist"`           | -                                              |
+| configName     | `"APP_CONFIG"`     | -                                              |
+| configFileName | `"_app.config.js"` | -                                              |
+| prefix         | `"config_"`        | case sensitive; if you use vite, maybe `VITE_` |
 
 ## CLI
 
@@ -68,25 +67,24 @@ We also provide a CLI for convenience when using `npm-scripts`.
 ```json
 {
   "scripts": {
-    "post-build": "create-config gen"
+    "post-build": "create-config"
   }
 }
 ```
 
-Here is the options(you can get the list by `create-config gen --help`):
+Here is the options(you can get the list by `create-config --help`):
 
 ```
   -o, --output <string>            output directory where to put the generated file (default: "dist")
   -f, --config-file-name <string>  filename of the generated file (default: "_app.config.js")
   -n, --config-name <string>       the key name of global(window) (default: "APP_CONFIG")
   -x, --prefix <string>            only keys start with the prefix would be preserved (default: "config_")
-  -p, --package-name <string>      package name
   -h, --help                       display help for command
 ```
 
 ## Without `dotenv`
 
-It's recomended to use `dotenv`, which is used widely in modern front-end dev environments.
+It's recommended to use `dotenv`, which is used widely in modern front-end dev environments.
 We automatically read configs from your `.env.production | .env` file.
 
 Besides, there is one more way without `dotenv`. A `appConfig.json` at root is also available.

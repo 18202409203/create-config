@@ -28,14 +28,12 @@ function createConfig({
     fs.writeFileSync(getRootPath(`${output}/${configFileName}`), configStr);
 
     console.log(
-      packageName
-        ? chalk.bgWhite(`[${packageName}]`)
-        : "" +
-            chalk.green(` - configuration file is built successfully at `) +
-            chalk.cyan(`${output}/${configFileName}`) +
-            "\n\n" +
-            chalk.magenta(`${JSON.stringify(config, null, 4)}`) +
-            "\n"
+      (packageName ? chalk.bgWhite(`[${packageName}]`) : "") +
+        chalk.green(` - configuration file is built successfully at `) +
+        chalk.cyan(`${output}/${configFileName}`) +
+        "\n\n" +
+        chalk.magenta(`${JSON.stringify(config, null, 4)}`) +
+        "\n"
     );
   } catch (error) {
     console.log(chalk.bgRed("failed when generating configuration file"));
