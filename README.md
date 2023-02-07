@@ -2,6 +2,8 @@
 
 CC(create-config) is a tool to generate a front-app-configuration-file for web pages' deployment.
 
+![create-config](result.png)
+
 ## Get Started
 
 ```bash
@@ -18,7 +20,7 @@ add a quick script in `package.json`:
 }
 ```
 
-If you have a `.env` file, and there are variables starts with `config_` 
+If you have a `.env` file, and there are variables starts with `config_`
 
 ```
 config_XXXX=XXXX
@@ -28,7 +30,7 @@ After run `npm run config`, then you can find `dist/_app.config.js` contains the
 
 ```js
 window.APP_CONFIG = {
-  config_XXXX: 'XXXX'
+  config_XXXX: "XXXX",
 };
 Object.freeze(window.APP_CONFIG);
 Object.defineProperty(window, "APP_CONFIG", {
@@ -65,6 +67,7 @@ function getGlobalConfig() {
 ```
 
 ## Further
+
 ### Javascript API
 
 **You will rarely to use this. It's recommended to use in the npm-scripts way.**
@@ -106,7 +109,7 @@ Here is the options(you can get the list by `npx create-config --help`):
   -h, --help                       display help for command
 ```
 
-###**** Without `dotenv`
+### Without `dotenv`
 
 It's recommended to use `dotenv`, which is used widely in modern front-end dev environments.
 We automatically read configs from your `.env.production | .env` file.
