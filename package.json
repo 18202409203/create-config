@@ -1,6 +1,6 @@
 {
   "name": "@zhupengji/create-config",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "frontend pages'configuration files generator",
   "main": "index.js",
   "type": "commonjs",
