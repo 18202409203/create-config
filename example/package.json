@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "config": "create-config"
+    "config": "create-config -v"
+  },
+  "create-config": {
+    "ENV": ".env.special"
   },
   "author": "",
   "license": "ISC",
