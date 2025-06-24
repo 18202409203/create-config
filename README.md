@@ -1,6 +1,7 @@
 # create-config
 
 CC(create-config) is a tool to generate a front-app-configuration-file for web pages' deployment.
+It supports [`vite`](https://vitejs.dev/) at first priority.
 
 ![create-config](result.png)
 
@@ -20,17 +21,17 @@ add a quick script in `package.json`:
 }
 ```
 
-If you have a `.env` file, and there are variables starts with `config_`
+If you have a `.env` file, and there are variables starts with `VITE_`
 
 ```
-config_XXXX=XXXX
+VITE_XXXX=XXXX
 ```
 
 After run `npm run config`, then you can find `dist/_app.config.js` contains the content:
 
 ```js
 window.APP_CONFIG = {
-  config_XXXX: "XXXX",
+  VITE_XXXX: "XXXX",
 };
 Object.freeze(window.APP_CONFIG);
 Object.defineProperty(window, "APP_CONFIG", {
@@ -39,59 +40,31 @@ Object.defineProperty(window, "APP_CONFIG", {
 });
 ```
 
-Or your can custom your own prefix by additional `-x`, for example:
-
-```json
-{
-  "scripts": {
-    "config": "create-config -x VITE_"
-  }
-}
-```
-
 ## Usage
 
 ### For vite (Strongly recommended)
 
-If you are using [vite](https://vitejs.dev/), you can use a plugin like this:
+If you are using vite, you can use our `vite-plugin-create-config`:
 
 ```js
 // vite.config.js
-const appConfigPlugin = () => {
-  return {
-    name: "app-config-plugin",
-    apply: "build",
-    transformIndexHtml() {
-      return {
-        tags: [
-          {
-            injectTo: "head-prepend",
-            tag: "script",
-            attrs: {
-              src: "/_app.config.js",
-            },
-          },
-        ],
-      };
-    },
-    transform(code) {
-      return code.replace(
-        /import\.meta\.env\.(VITE_APP_.*)/g,
-        "window.APP_CONFIG.$1"
-      );
-    },
-  };
-};
+import { defineConfig } from "vite";
+import { vitePluginCreateConfig } from "@zhupengji/create-config/vite-plugin-create-config";
 
 export default defineConfig({
   plugins: [
     // ...
-    appConfigPlugin(),
+    vitePluginCreateConfig(),
   ],
 });
 ```
 
-### Others
+Except generated a `dist/_app.config.js` file with `window.APP_CONFIG` definition at `dist`, this plugin would replace
+`import.meta.env` content with `window.APP_CONFIG` in production automatically.
+
+### Others (Without vite)
+
+This is also what `vite-plugin-create-config` does. But you need to do these works by yourself if without vite.
 
 1. Modify your html entry file manually or by tools like webpack.
 
@@ -120,7 +93,7 @@ Here is the default config file:
 module.exports = {
   CONFIG_FILE_NAME: "_app.config.js",
   CONFIG_NAME: "APP_CONFIG",
-  PREFIX: "config_",
+  PREFIX: "VITE_",
   OUTPUT_DIR: "dist",
   RC: "appConfig.json",
   ENV: ".env",
@@ -154,7 +127,7 @@ createConfig({
 | output         | `"dist"`           | -                                              |
 | configName     | `"APP_CONFIG"`     | -                                              |
 | configFileName | `"_app.config.js"` | -                                              |
-| prefix         | `"config_"`        | case sensitive; if you use vite, maybe `VITE_` |
+| prefix         | `"VITE_"`          | case sensitive; if you use vite, maybe `VITE_` |
 | packageName    | -                  | `npm_package_name + npm_package_version`       |
 
 ### CLI
@@ -167,8 +140,9 @@ Here is the options(you can get the list by `npx create-config --help`):
   -o, --output <string>            output directory where to put the generated file (default: "dist")
   -f, --config-file-name <string>  filename of the generated file (default: "_app.config.js")
   -n, --config-name <string>       the key name of global(window) (default: "APP_CONFIG")
-  -x, --prefix <string>            only keys start with the prefix would be preserved (default: "config_")
+  -x, --prefix <string>            only keys start with the prefix would be preserved (default: "VITE_")
   -h, --help                       display help for command
+  -v, --verbose                    verbose mode: show specific settings from rc file
 ```
 
 ### Without `dotenv`

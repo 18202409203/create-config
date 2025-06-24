@@ -10,7 +10,8 @@
   "files": [
     "index.js",
     "constants.js",
-    "template.js"
+    "template.js",
+    "vite-plugin-create-config.js"
   ],
   "scripts": {
     "test": "node playground/post-build.js",
