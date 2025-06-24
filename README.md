@@ -49,7 +49,49 @@ Or your can custom your own prefix by additional `-x`, for example:
 }
 ```
 
-### Usage
+## Usage
+
+### For vite (Strongly recommended)
+
+If you are using [vite](https://vitejs.dev/), you can use a plugin like this:
+
+```js
+// vite.config.js
+const appConfigPlugin = () => {
+  return {
+    name: "app-config-plugin",
+    apply: "build",
+    transformIndexHtml() {
+      return {
+        tags: [
+          {
+            injectTo: "head-prepend",
+            tag: "script",
+            attrs: {
+              src: "/_app.config.js",
+            },
+          },
+        ],
+      };
+    },
+    transform(code) {
+      return code.replace(
+        /import\.meta\.env\.(VITE_APP_.*)/g,
+        "window.APP_CONFIG.$1"
+      );
+    },
+  };
+};
+
+export default defineConfig({
+  plugins: [
+    // ...
+    appConfigPlugin(),
+  ],
+});
+```
+
+### Others
 
 1. Modify your html entry file manually or by tools like webpack.
 
@@ -64,6 +106,26 @@ function getGlobalConfig() {
   if (process.env.NODE_ENV === "production") return window["APP_CONFIG"];
   // ... otherwise
 }
+```
+
+## Cosmiconfig
+
+We use [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) to find your config file.
+
+A `create-config.config.js` is expected in the root directory of your project.
+
+Here is the default config file:
+
+```js
+module.exports = {
+  CONFIG_FILE_NAME: "_app.config.js",
+  CONFIG_NAME: "APP_CONFIG",
+  PREFIX: "config_",
+  OUTPUT_DIR: "dist",
+  RC: "appConfig.json",
+  ENV: ".env",
+  ENV_PRODUCTION: ".env.production",
+};
 ```
 
 ## Further

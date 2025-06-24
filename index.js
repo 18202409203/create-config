@@ -1,31 +1,23 @@
 const chalk = require("chalk");
 const fs = require("fs-extra");
 const path = require("path");
-const { CONFIG_FILE_NAME, CONFIG_NAME, OUTPUT_DIR } = require("./constants");
 const { getTemplate } = require("./template");
 
-/**
- * 获取相对于cwd的路径
- */
 function getRootPath(...dir) {
   return path.resolve(process.cwd(), ...dir);
 }
 
-/**
- * 生成配置文件
- * @param {*} config 配置对象
- */
-function createConfig({
+async function createConfig({
   config,
-  configName = CONFIG_NAME,
-  configFileName = CONFIG_FILE_NAME,
-  output = OUTPUT_DIR,
+  configName,
+  configFileName,
+  output,
   packageName,
 }) {
   try {
     const configStr = getTemplate(configName, config);
-    fs.mkdirp(getRootPath(output));
-    fs.writeFileSync(getRootPath(`${output}/${configFileName}`), configStr);
+    await fs.mkdirp(getRootPath(output));
+    await fs.writeFile(getRootPath(`${output}/${configFileName}`), configStr);
 
     console.log(
       (packageName ? chalk.bgWhite(`[${packageName}]`) : "") +
