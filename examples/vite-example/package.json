@@ -1,0 +1,16 @@
+{
+  "name": "vite-example",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && npm run config",
+    "preview": "vite preview",
+    "config": "create-config -v"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5",
+    "@zhupengji/create-config": "file:../.."
+  }
+}

@@ -5,12 +5,9 @@
   "scripts": {
     "config": "create-config -v"
   },
-  "create-config": {
-    "ENV": ".env.special"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@zhupengji/create-config": "file:.."
+    "@zhupengji/create-config": "file:../.."
   }
 }
